@@ -1,3 +1,10 @@
+##########################
+# Travel a 2D Grid, can move down and right
+#
+# Base case:
+# (0,0) or (0,x) or (x,0) = 0
+# (1,1) = 1
+##########################
 def gridTraveler(m, n):
     # O(2^n+m) time
     # O(n+m) space
@@ -8,8 +15,8 @@ def gridTraveler(m, n):
 
 
 def gridTravelerMemo(m, n, memo={}):
-    # O(m*n) time
-    # O(n+m) space
+    # O(mn) time
+    # O(m+n) space
     key = str(m) + ',' + str(n)
     if key in memo: return memo[key]
     if m == 1 and n == 1: return 1
@@ -29,7 +36,6 @@ def gridTabulation(m, n):
             current = table[i][j]
             if j + 1 <= n: table[i][j + 1] += current
             if i + 1 <= m: table[i + 1][j] += current
-
     return table[m][n]
 
 

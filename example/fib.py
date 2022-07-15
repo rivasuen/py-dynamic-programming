@@ -1,7 +1,7 @@
 ##########################
 # FIBONACCI
 #
-# Init value:
+# Base case:
 # fib(1) =1
 # fib(2) = 1
 # So, if n <=2, return 1
