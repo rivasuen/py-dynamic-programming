@@ -1,75 +1,80 @@
 ##########################
-# Is it possible to generate the targetSum by using numbers from array?
+# Is it POSSIBLE to generate the target_sum by using numbers from array?
 # return True/False
 #
 # Base case:
-# if targetSum == 0, return True
-# if targetSum < 0, return False
+# if target_sum == 0, return True
+# if target_sum < 0, return False
 #
-# targetSum = 7, nums = [5, 4, 3, 7]
+# target_sum = 7, nums = [5, 4, 3, 7]
 # 7 - 5 = 2; 2 - 4 = -2 -> False
 # 7 - 4 = 3; 3 - 3 = 0 -> True
 ##########################
 # m = target sum
 # n = array length
-def canSum(targetSum, nums):
+def can_sum(target_sum, nums):
     # O(n^m) time
     # O(m) space
-    if targetSum == 0: return True
-    if targetSum < 0: return False
+    if target_sum == 0:
+        return True
+    if target_sum < 0:
+        return False
     for num in nums:
-        remainder = targetSum - num
-        if canSum(remainder, nums):
+        remainder = target_sum - num
+        if can_sum(remainder, nums):
             return True
 
     return False
 
 
-def canSumMemo(targetSum, nums, memo={}):
+def can_sum_memo(target_sum, nums, memo={}):
     # O(mn) time
     # O(m) space
-    if targetSum in memo: return memo[targetSum]
-    if targetSum == 0: return True
-    if targetSum < 0: return False
+    if target_sum in memo:
+        return memo[target_sum]
+    if target_sum == 0:
+        return True
+    if target_sum < 0:
+        return False
     for num in nums:
-        remainder = targetSum - num
-        if canSumMemo(remainder, nums):
-            memo[targetSum] = True
+        remainder = target_sum - num
+        if can_sum_memo(remainder, nums):
+            memo[target_sum] = True
             return True
-    memo[targetSum] = False
+    memo[target_sum] = False
     return False
 
 
-def canSumTabulation(targetSum, nums):
+def can_sum_tabulation(target_sum, nums):
     # O(mn) time
     # O(m) space
-    table = [False] * (targetSum + 1)
+    table = [False] * (target_sum + 1)
     table[0] = True
-    for i in range(targetSum + 1):
+    for i in range(target_sum + 1):
         if table[i] is True:
             for num in nums:
-                if i + num <= targetSum:
+                if i + num <= target_sum:
                     table[i + num] = True
-    return table[targetSum]
+    return table[target_sum]
 
 
-def canSumDemo():
+def can_sum_demo():
     m1, n1, ans1 = 7, [2, 4], False
     m2, n2, ans2 = 8, [2, 3, 5], True
-    m3, n3, ans3 = 100, [7, 14], False
-    print("### canSumDemo ###")
+    m3, n3, ans3 = 300, [7, 14], False
+    print("### can_sumDemo ###")
     print("Brute Force:")
-    printDemo(m1, n1, canSum(m1, n1), ans1)
+    print_demo(m1, n1, can_sum(m1, n1), ans1)
     print("Memoization:")
-    printDemo(m1, n1, canSumMemo(m1, n1), ans1)
-    printDemo(m2, n2, canSumMemo(m2, n2), ans2)
-    printDemo(m3, n3, canSumMemo(m3, n3), ans3)  # BUG: Dict pass by value
+    print_demo(m1, n1, can_sum_memo(m1, n1), ans1)
+    print_demo(m2, n2, can_sum_memo(m2, n2), ans2)
+    print_demo(m3, n3, can_sum_memo(m3, n3), ans3)  # BUG: Dict pass by value
     print("Tabulation:")
-    printDemo(m1, n1, canSumTabulation(m1, n1), ans1)
-    printDemo(m2, n2, canSumTabulation(m2, n2), ans2)
-    printDemo(m3, n3, canSumTabulation(m3, n3), ans3)
+    print_demo(m1, n1, can_sum_tabulation(m1, n1), ans1)
+    print_demo(m2, n2, can_sum_tabulation(m2, n2), ans2)
+    print_demo(m3, n3, can_sum_tabulation(m3, n3), ans3)
     print("##########################")
 
 
-def printDemo(val1, val2, res, ans):
+def print_demo(val1, val2, res, ans):
     print(val1, ",", val2, ": ", res, "(", ans, ")")
